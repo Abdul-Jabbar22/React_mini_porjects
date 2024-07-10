@@ -93,10 +93,26 @@ export class Severice {
 
   async uploadFile(file) {
     try {
+      return await this.bucket.createFile(
+        config.apwriteBucketId,
+        ID.unique(),
+        file
+      );
     } catch (error) {
       console.log("Appwrite service uploadfiles", error);
       return false;
     }
+  }
+
+  async deleteFile(filedId) {
+    try {
+      await this.bucket.deleteFile(config.appwriteDatabaseId, fileId);
+    } catch (error) {
+      console.log("Appwrite service :: deletefile", error);
+    }
+  }
+  getFilePreveiw(filedId) {
+    return this.bucket.getFilePreview(config.appwriteDatabaseId, filedId);
   }
 }
 
